@@ -47,21 +47,21 @@ namespace Poshbots
 
             // Uncomment the following lines to enable logging in with third party login providers
             app.UseMicrosoftAccountAuthentication(
-                clientId: "12feef63-f5a4-4c2e-a29f-195dd8edf58c",
-                clientSecret: "xgkctXN2sSQajExojyUG3Mx");
+                clientId: "",
+                clientSecret: "");
 
             //app.UseTwitterAuthentication(
             //   consumerKey: "",
             //   consumerSecret: "");
 
             app.UseFacebookAuthentication(
-               appId: "1458203327560450",
-               appSecret: "36ce11556a4e71ced582db9b14e3664d");
+               appId: "",
+               appSecret: "");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "849287271299-liacdr3aqan837nvk7tdh8r4ukbu7q8u.apps.googleusercontent.com",
-                ClientSecret = "umMCR3B9zu0jztr9b0aDwkAy"
+                ClientId = "",
+                ClientSecret = ""
             });
         }
     }
