@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poshbots", "Poshbots\Poshbots.csproj", "{4AA6CBC4-ADCD-4048-BF31-E2E6D174650C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poshbots.Infrastructure", "Poshbots.Infrastructure\Poshbots.Infrastructure.csproj", "{18C46F67-C429-4523-B55D-0EAEEF9716BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poshbots.Core", "Poshbots.Core\Poshbots.Core.csproj", "{1890B8B6-B4C5-492C-BCD8-D0FD1A050FDA}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Poshbots.Database", "Poshbots.Database\Poshbots.Database.sqlproj", "{E4669828-354C-4726-A41D-1DA46758FBB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AA6CBC4-ADCD-4048-BF31-E2E6D174650C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AA6CBC4-ADCD-4048-BF31-E2E6D174650C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AA6CBC4-ADCD-4048-BF31-E2E6D174650C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AA6CBC4-ADCD-4048-BF31-E2E6D174650C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18C46F67-C429-4523-B55D-0EAEEF9716BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18C46F67-C429-4523-B55D-0EAEEF9716BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18C46F67-C429-4523-B55D-0EAEEF9716BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18C46F67-C429-4523-B55D-0EAEEF9716BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1890B8B6-B4C5-492C-BCD8-D0FD1A050FDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1890B8B6-B4C5-492C-BCD8-D0FD1A050FDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1890B8B6-B4C5-492C-BCD8-D0FD1A050FDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1890B8B6-B4C5-492C-BCD8-D0FD1A050FDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4669828-354C-4726-A41D-1DA46758FBB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4669828-354C-4726-A41D-1DA46758FBB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4669828-354C-4726-A41D-1DA46758FBB8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E4669828-354C-4726-A41D-1DA46758FBB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4669828-354C-4726-A41D-1DA46758FBB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4669828-354C-4726-A41D-1DA46758FBB8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

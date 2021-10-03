@@ -1,0 +1,52 @@
+﻿@model Poshbots.Models.NewBotViewModel
+@{
+    ViewBag.Title = "New Bot";
+}
+
+<div class="col-md-6">
+    <form action="/Bots/New" method="post">
+        <h2>New Bot</h2>
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
+        <br /><br />
+        @Html.LabelFor(m => m.Code)<br />
+        @Html.TextAreaFor(m => m.Code, new { style = "width: 80%; height: 400px;" })
+        <br /><br />
+        <button type="submit" value="Save">Save</button>
+    </form>
+</div>
+<div class="col-md-6">
+    <h2>Sample Code</h2>
+    <pre>$surroundings = Get-Surroundings
+$maxX = $null;
+$maxY = $null;
+$maxPoints = 0;
+for ($x = 1; $x -lt 4; $x++)
+{
+    for ($y = 1; $y -lt 4; $y++)
+    {
+        if ($surroundings[$x][$y].Points -gt $maxPoints -and $surroundings[$x][$y].Owner -ne "Short-Sighted-Bot" -and ($x -ne 2 -or $y -ne 2))
+        {
+            $maxX = $x;
+            $maxY = $y;
+            $maxPoints = $surroundings[$x][$y].Points;
+        }
+    }
+}
+
+if ($maxY -eq 1) { Move-Up }
+elseif ($maxY -eq 3) { Move-Down }
+elseif ($maxX -eq 1) { Move-Left }
+elseif ($maxX -eq 3) { Move-Right }
+else
+{
+    $randomMove = Get-Random -Minimum 1 -Maximum 5
+    switch($randomMove)
+    {
+        1 { Move-Up }
+        2 { Move-Down }
+        3 { Move-Left }
+        4 { Move-Right }
+    }        
+}</pre>
+</div>

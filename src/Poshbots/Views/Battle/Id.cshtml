@@ -1,0 +1,115 @@
+﻿@model Poshbots.Models.ViewBattleViewModel
+@{
+    ViewBag.Title = Model.Battle.Players[0].Bot.Name + " vs " + Model.Battle.Players[1].Bot.Name;
+}
+
+<div style="margin-top: 20px;">
+    <div class="text-center col-md-2">
+        <h2 id="player1-name" class="text=center scoreboard">@Model.Battle.Players[0].Bot.Name</h2>
+        <h3 id="player1-score" class="text-center">0</h3>
+    </div>
+    <div class="col-md-8">
+        <table id="tblMap">
+            @for (int y = 0; y < Model.Battle.Map.GetLength(1); y++)
+            {
+                <tr>
+                    @for (int x = 0; x < Model.Battle.Map.GetLength(0); x++)
+                    {
+                        <td id="@x-@y"></td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-2">
+        <h2 id="player2-name" class="text-center scoreboard">@Model.Battle.Players[1].Bot.Name</h2>
+        <h3 id="player2-score" class="text-center">0</h3>
+    </div>
+    @if (!Model.Battle.Started)
+    {
+        <div id="divStartBattle" class="col-sm-12 text-center">
+            <br /><br />
+            <h2>Preparing for battle...</h2>
+        </div>
+    }
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var startGameInterval = window.setInterval(startGame, 5000); // Wait 5 seconds before starting match
+        var newMoveInterval = window.setInterval(refreshMap, 500);
+
+        function refreshMap() {
+            $.getJSON('/api/map/@(Url.RequestContext.RouteData.Values["id"])', function (results) {
+                drawMap(results.Map);
+
+                $('#player1-score').html(results.Players[0].Score.toLocaleString());
+                $('#player2-score').html(results.Players[1].Score.toLocaleString());
+
+                if (results.Winner != null) {
+                    alert(results.Winner + " is the winner!");
+                    window.clearInterval(newMoveInterval);
+                }
+            });
+
+        }
+
+        function drawMap(map) {
+            for (var y = 0; y < map.length; y++) {
+                for (var x = 0; x < map[y].length; x++) {
+                    $("#" + x + "-" + y).html(map[x][y].Points);
+                    if (map[x][y].Occupied == $('#player1-name').html()) {
+                        $("#" + x + "-" + y).removeClass('owned-blue');
+                        $("#" + x + "-" + y).removeClass('owned-red');
+                        $("#" + x + "-" + y).removeClass('occupied-blue');
+                        $("#" + x + "-" + y).addClass('occupied-red');
+                    }
+                    else if (map[x][y].Occupied == $('#player2-name').html()) {
+                        $("#" + x + "-" + y).removeClass('owned-blue');
+                        $("#" + x + "-" + y).removeClass('owned-red');
+                        $("#" + x + "-" + y).addClass('occupied-blue');
+                        $("#" + x + "-" + y).removeClass('occupied-red');
+                    }
+                    else if (map[x][y].Owner == $('#player1-name').html()) {
+                        $("#" + x + "-" + y).removeClass('owned-blue');
+                        $("#" + x + "-" + y).addClass('owned-red');
+                        $("#" + x + "-" + y).removeClass('occupied-blue');
+                        $("#" + x + "-" + y).removeClass('occupied-red');
+                    }
+                    else if (map[x][y].Owner == $('#player2-name').html()) {
+                        $("#" + x + "-" + y).addClass('owned-blue');
+                        $("#" + x + "-" + y).removeClass('owned-red');
+                        $("#" + x + "-" + y).removeClass('occupied-blue');
+                        $("#" + x + "-" + y).removeClass('occupied-red');
+                    }
+                    else
+                    {
+                        $("#" + x + "-" + y).removeClass('owned-blue');
+                        $("#" + x + "-" + y).removeClass('owned-red');
+                        $("#" + x + "-" + y).removeClass('occupied-blue');
+                        $("#" + x + "-" + y).removeClass('occupied-red');
+                    }
+
+                }
+            }
+        }
+
+        function startGame() {
+            $.ajax({
+                url: '/api/startbattle/@Model.Battle.BattleId',
+                type: 'GET',
+                success: function (results) {
+                }
+            });
+            window.clearInterval(startGameInterval);
+
+            setTimeout(hideStartBattle, 1200);            
+        }
+
+        function hideStartBattle() {
+            $('#divStartBattle').hide();
+        }
+
+    </script>
+}

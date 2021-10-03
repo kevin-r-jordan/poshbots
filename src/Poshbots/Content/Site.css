@@ -1,0 +1,66 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+table {
+    margin: 0 auto;
+}
+
+table, tr, td {
+    border: 1px solid black;
+    padding: 0;
+}
+
+tr {
+    height: 20px;
+}
+
+td {
+    width: 20px;
+    text-align: center;
+    font-family: 'Courier New';
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.owned-red {
+    background: rgba(255, 0, 110, 0.3);
+}
+
+.occupied-red {
+    background: rgba(255, 0, 110, 1);
+}
+
+.owned-blue {
+    background: rgba(0, 148, 255, 0.3);
+}
+
+.occupied-blue {
+    background: rgba(0, 148, 255, 1);
+}
+
+.scoreboard {
+    text-decoration: underline;
+}
+
+#player1-name, #player1-score {
+    color: rgba(255, 0, 110, 1);
+}
+
+#player2-name, #player2-score {
+    color: rgba(0, 148, 255, 1);
+}

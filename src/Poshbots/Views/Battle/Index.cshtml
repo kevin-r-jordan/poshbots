@@ -1,0 +1,14 @@
+﻿@model Poshbots.Models.StartBattleViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<form action="/Battle" method="post">
+    Your Bot: @Html.DropDownListFor(m => m.Player1BotId, Model.PlayerBotsList)
+    <br />
+    Bot to Fight: @Html.DropDownListFor(m => m.Player2BotId, Model.AllBotsList)
+    <br />
+    <button type="submit" value="fight">Fight!</button>
+</form>
+

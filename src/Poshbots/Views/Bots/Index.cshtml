@@ -1,0 +1,12 @@
+﻿@model Poshbots.Models.ListBotsViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Bots</h2>
+@foreach(var bot in Model.Bots)
+{
+    <p><a href="/Bots/Edit/@bot.BotId">@bot.Name</a></p>
+}
+<hr />
+<p><a href="/Bots/New">Create New Bot</a></p>

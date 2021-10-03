@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "Training " + Url.RequestContext.RouteData.Values["id"];
+}
+
+<div style="margin-top: 20px;">
+    <div class="text-center col-md-2">
+        <h2 id="player1-name" class="text=center scoreboard">Player</h2>
+        <h3 id="player1-score" class="text-center">0</h3>
+    </div>
+    <div class="col-md-8">
+        <table id="tblMap">
+            @for (int y = 0; y < 30; y++)
+            {
+                <tr>
+                    @for (int x = 0; x < 30; x++)
+                    {
+                        <td id="@x-@y"></td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-2">
+        <h2 id="player2-name" class="text-center scoreboard">Training</h2>
+        <h3 id="player2-score" class="text-center">0</h3>
+    </div>
+    <div class="col-sm-12 text-center">
+        <br /><br />
+        <button class="btn btn-default" onclick="newGame();">New Game</button>
+    </div>
+    <div class="col-sm-12 text-center">
+        <br /><br />
+        <h2>Training Starter Code</h2>
+        <pre class="text-left">$BaseUri = "https://poshbots.com/"
+$GameName = "@Url.RequestContext.RouteData.Values["id"]"
+$Player1Name = "Player"
+
+function Get-Surroundings 
+{
+    Param([string] $playerName)
+    Invoke-RestMethod -Method Get -Uri "$BaseUri/api/GetSurroundings/$GameName/?playerName=$playerName"
+}
+
+function Get-Score 
+{
+    Invoke-RestMethod -Method Get -Uri "$BaseUri/api/GetScore/$GameName"
+}
+
+function Move-Up
+{
+    Param([string] $playerName)
+    "$playerName moves up"
+    Invoke-RestMethod -Method Get -Uri "$BaseUri/api/MoveUp/$GameName/?playerName=$playerName"
+}
+
+function Move-Down
+{
+    Param([string] $playerName)
+    "$playerName moves down"
+    Invoke-RestMethod -Method Get -Uri "$BaseUri/api/MoveDown/$GameName/?playerName=$playerName"
+}
+
+function Move-Left
+{
+    Param([string] $playerName)
+    "$playerName moves left"
+    Invoke-RestMethod -Method Get -Uri "$BaseUri/api/MoveLeft/$GameName/?playerName=$playerName"
+}
+
+function Move-Right
+{
+    Param([string] $playerName)
+    "$playerName moves right"
+    Invoke-RestMethod -Method Get -Uri "$BaseUri/api/MoveRight/$GameName/?playerName=$playerName"
+}
+
+function Move-Player1 { 
+    ##################################################
+    # Write your code here
+    ##################################################
+    $surroundings = Get-Surroundings $Player1Name
+    Move-Up $Player1Name
+} 
+
+function Move-Player2 {  
+    $randomMove = Get-Random -Minimum 1 -Maximum 5
+    switch($randomMove)
+    {
+        1 { Move-Up "Training" }
+        2 { Move-Down "Training" }
+        3 { Move-Left "Training" }
+        4 { Move-Right "Training" }
+    }
+} 
+
+$currentMap = Invoke-RestMethod -Method Get -Uri "$BaseUri/api/map/$GameName"
+while($currentMap.Winner -eq $null)
+{
+    Move-Player1
+    Move-Player2
+
+    $currentMap = Invoke-RestMethod -Method Get -Uri "$BaseUri/api/map/$GameName"
+	
+	Start-Sleep -Milliseconds 500
+}</pre>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var newMoveInterval = window.setInterval(refreshMap, 500);
+
+        function refreshMap() {
+            $.getJSON('/api/map/@(Url.RequestContext.RouteData.Values["id"])', function (results) {
+                drawMap(results.Map);
+
+                $('#player1-name').html(results.Players[0].Name);
+                $('#player1-score').html(results.Players[0].Score.toLocaleString());
+
+                $('#player2-name').html(results.Players[1].Name);
+                $('#player2-score').html(results.Players[1].Score.toLocaleString());
+
+                if (results.Winner != null) {
+                    alert(results.Winner + " is the winner!");
+                    window.clearInterval(newMoveInterval);
+                }
+            });
+
+        }
+
+        function drawMap(map) {
+            for (var y = 0; y < map.length; y++) {
+                for (var x = 0; x < map[y].length; x++) {
+                    $("#" + x + "-" + y).html(map[x][y].Points);
+                    if (map[x][y].Occupied == $('#player1-name').html()) {
+                        $("#" + x + "-" + y).removeClass('owned-blue');
+                        $("#" + x + "-" + y).removeClass('owned-red');
+                        $("#" + x + "-" + y).removeClass('occupied-blue');
+                        $("#" + x + "-" + y).addClass('occupied-red');
+                    }
+                    else if (map[x][y].Occupied == $('#player2-name').html()) {
+                        $("#" + x + "-" + y).removeClass('owned-blue');
+                        $("#" + x + "-" + y).removeClass('owned-red');
+                        $("#" + x + "-" + y).addClass('occupied-blue');
+                        $("#" + x + "-" + y).removeClass('occupied-red');
+                    }
+                    else if (map[x][y].Owner == $('#player1-name').html()) {
+                        $("#" + x + "-" + y).removeClass('owned-blue');
+                        $("#" + x + "-" + y).addClass('owned-red');
+                        $("#" + x + "-" + y).removeClass('occupied-blue');
+                        $("#" + x + "-" + y).removeClass('occupied-red');
+                    }
+                    else if (map[x][y].Owner == $('#player2-name').html()) {
+                        $("#" + x + "-" + y).addClass('owned-blue');
+                        $("#" + x + "-" + y).removeClass('owned-red');
+                        $("#" + x + "-" + y).removeClass('occupied-blue');
+                        $("#" + x + "-" + y).removeClass('occupied-red');
+                    }
+                    else
+                    {
+                        $("#" + x + "-" + y).removeClass('owned-blue');
+                        $("#" + x + "-" + y).removeClass('owned-red');
+                        $("#" + x + "-" + y).removeClass('occupied-blue');
+                        $("#" + x + "-" + y).removeClass('occupied-red');
+                    }
+
+                }
+            }
+        }
+
+        function newGame() {
+            $.ajax({
+                url: '/api/map/@(Url.RequestContext.RouteData.Values["id"])',
+                type: 'DELETE',
+                success: function (results) {
+                }
+            });
+            location.reload();
+        }
+
+    </script>
+}
