@@ -1,4 +1,5 @@
-# Poshbots (PowerShell Bots)
+![PoshBots (PowerShell Bots)](https://raw.githubusercontent.com/kevin-r-jordan/poshbots/main/docs/poshbots.png "PoshBots (PowerShell Bots)")
+
 Test your PowerShell skills by having competing against other PoshBots!
 
 ## Concept
@@ -19,5 +20,9 @@ Essentially, the bot with the best algorithm would win. Different strategies wer
 ## Training Mode
 Training mode allowed players to test their bots by calling the games API's directly through PowerShell and controller both their bot and a competing bot.
 
+![Using PowerShell ISE to traing your PoshBot](https://raw.githubusercontent.com/kevin-r-jordan/poshbots/main/docs/poshbots-powershell-trainer.png "Using PowerShell ISE to traing your PoshBot")
+
 ## Battle Mode
 After a player trained their bot, they could compete against any of the other team member's bots that had been saved. Each bot's code was uploaded to an Azure function and then executed. Players could watch the outcome of the battle on a web UI in real time.
+
+![Watching PoshBots battle in the Web UI](https://raw.githubusercontent.com/kevin-r-jordan/poshbots/main/docs/poshbots-powershell-battle.png "Watching PoshBots battle in the Web UI")
